@@ -1,0 +1,28 @@
+env:
+
+dev:
+  adapter: SQLite
+  database: db/diaries.sqlite
+  host:
+  username:
+  password:
+  port:
+  config:
+
+prod:
+  adapter:
+  database:
+  host:
+  username:
+  password:
+  port:
+  config:
+
+test:
+  adapter:
+  database:
+  host:
+  username:
+  password:
+  port:
+  config: 

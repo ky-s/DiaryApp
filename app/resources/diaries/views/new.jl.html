@@ -1,0 +1,23 @@
+<div class="card m-2 mx-auto" style="width: 65%">
+  <div class="card-header">
+    <h3>Diaries</h3>
+  </div>
+  <div class="card-body">
+      <form action="$(Genie.Router.link_to(:create_diary))" method="POST">
+          <input type="hidden" name="date" value="$(@vars(:date))" />
+          <div class="input-group mb-3" style="width: 30%">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">$(@vars(:date))</span>
+              </div>
+              <input type="text" name="weather" value="" class="form-control" />
+              <!-- 天気をselect にする -->
+              <div class="input-group-append">
+                  <input type="submit" value="Submit" class="btn btn-sm btn-primary" />
+              </div>
+          </div>
+          <textarea name="note" class="form-control" rows="20"></textarea>
+      </form>
+  </div>
+</div>
+
+
