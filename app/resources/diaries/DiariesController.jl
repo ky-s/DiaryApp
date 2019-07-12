@@ -24,11 +24,21 @@ function index()
           diaries_by_day = diaries_by_day,
           dayrange       = fdom:Day(1):ldom,
           title          = Dates.format(date, "yyyy年m月"),
+          year           = year( date),
+          month          = month(date),
           prev_year      = year( date - Month(1)),
           prev_month     = month(date - Month(1)),
           next_year      = year( date + Month(1)),
           next_month     = month(date + Month(1)),
+          now_year       = year(Date(now())),
+          now_month      = month(Date(now())),
     )
+end
+
+function show()
+    date = Date(@params(:date))
+    diary = SearchLight.find_one_by(Diary, SQLWhereExpression("date = ?", date)) |> get
+    html!(:diaries, :show, diary = diary)
 end
 
 function new()

@@ -4,10 +4,20 @@
   </div>
   <div class="card-body">
     <div>
+      <div class="list-group list-group-horizontal-sm m-2">
+        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:year) - 1, month = @vars(:month)))"
+           class="list-group-item list-group-item-action list-group-item-danger text-center">Previous Year</a>
+        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:now_year), month = @vars(:now_month)))"
+           class="list-group-item list-group-item-action list-group-item-warning text-center">Today</a>
+        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:year) + 1, month = @vars(:month)))"
+           class="list-group-item list-group-item-action list-group-item-danger text-center">Next Year</a>
+      </div>
       <div class="list-group list-group-horizontal-xl m-2">
-        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:prev_year), month = @vars(:prev_month)))" class="list-group-item list-group-item-action text-center">Previous</a>
-        <button class="list-group-item list-group-item-action disabled text-center"><strong>$(@vars(:title))</strong></button>
-        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:next_year), month = @vars(:next_month)))" class="list-group-item list-group-item-action text-center">Next</a>
+        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:prev_year), month = @vars(:prev_month)))"
+           class="list-group-item list-group-item-action list-group-item-info text-center">Previous Month</a>
+        <button class="list-group-item list-group-item-action disabled text-center list-group-item-info"><strong>$(@vars(:title))</strong></button>
+        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:next_year), month = @vars(:next_month)))"
+           class="list-group-item list-group-item-action list-group-item-info text-center">Next Month</a>
       </div>
     </div>
     <div class="table-responsive">
@@ -25,10 +35,10 @@
 
             """
               <tr $(diary == nothing && "class='table-secondary'")
-                  onclick="location.href = '$(Genie.Router.link_to(diary == nothing ? :new_diary : :edit_diary, date = day))'">
+                  onclick="location.href = '$(Genie.Router.link_to((diary == nothing ? :new_diary : :edit_diary), date = day))'">
                 <td>$(day)</td>
                 <td>
-                  <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 500px">
+                  <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 700px">
                     $(diary != nothing ? diary.note : "(new)")
                   </div>
                 </td>

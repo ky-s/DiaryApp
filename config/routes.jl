@@ -6,6 +6,7 @@ route("/") do
 end
 
 route("/diaries", DiariesController.index, named = :index_diaries)
+# route("/diaries/show", DiariesController.show, named = :show_diary)
 route("/diaries/new", DiariesController.new, named = :new_diary)
 route("/diaries/create", DiariesController.create, method = POST, named = :create_diary)
 route("/diaries/edit", DiariesController.edit, named = :edit_diary)
