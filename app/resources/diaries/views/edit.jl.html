@@ -16,19 +16,20 @@
               <div class="input-group-prepend">
                   <span class="input-group-text">天気</span>
               </div>
-              <select name="weather" class="form-control" value=$(@vars(:diary).weather)>
+              <select name="weather" class="form-control">
                 <option value="">不明</option>
                 <option value="Sunny">晴れ</option>
                 <option value="Cloudy">曇り</option>
                 <option value="Rain">雨</option>
                 <option value="Snow">雪</option>
               </select>
+              <script>\$("select[name='weather']").val("$(@vars(:diary).weather)")</script>
           </div>
         </div>
         <div class="col-sm-2">
           <div class="btn-group" role="group">
             <input type="submit" value="Submit" class="btn btn-primary" />
-            <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
+            <a class="btn btn-secondary" href="$(Genie.Router.link_to(:index_diaries, year = @vars(:year), month = @vars(:month)))">back</a>
           </div>
         </div>
       </div>

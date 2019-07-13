@@ -42,7 +42,8 @@ function show()
 end
 
 function new()
-    html!(:diaries, :new, date = @params(:date))
+    date = Date(@params(:date))
+    html!(:diaries, :new, date = date, year = year(date), month = month(date))
 end
 
 function create()
@@ -54,7 +55,7 @@ end
 function edit()
     date = Date(@params(:date))
     diary = SearchLight.find_one_by(Diary, SQLWhereExpression("date = ?", date)) |> get
-    html!(:diaries, :edit, diary = diary)
+    html!(:diaries, :edit, diary = diary, year = year(date), month = month(date))
 end
 
 function update()
