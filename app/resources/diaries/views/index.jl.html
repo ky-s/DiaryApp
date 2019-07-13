@@ -1,54 +1,77 @@
-<div class="card m-2 mx-auto" style="width: 65%">
-  <div class="card-header">
-    <h3>Diaries</h3>
-  </div>
-  <div class="card-body">
-    <div>
-      <div class="list-group list-group-horizontal-sm m-2">
-        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:year) - 1, month = @vars(:month)))"
-           class="list-group-item list-group-item-action list-group-item-danger text-center">Previous Year</a>
-        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:now_year), month = @vars(:now_month)))"
-           class="list-group-item list-group-item-action list-group-item-warning text-center">Today</a>
-        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:year) + 1, month = @vars(:month)))"
-           class="list-group-item list-group-item-action list-group-item-danger text-center">Next Year</a>
+<div class="row">
+  <div class="col-sm-8 m-2">
+    <div class="card mx-auto">
+      <div class="card-header">
+        <h3>Diaries</h3>
       </div>
-      <div class="list-group list-group-horizontal-xl m-2">
-        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:prev_year), month = @vars(:prev_month)))"
-           class="list-group-item list-group-item-action list-group-item-info text-center">Previous Month</a>
-        <button class="list-group-item list-group-item-action disabled text-center list-group-item-info"><strong>$(@vars(:title))</strong></button>
-        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:next_year), month = @vars(:next_month)))"
-           class="list-group-item list-group-item-action list-group-item-info text-center">Next Month</a>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th class="th-sm" style="width: 16%">day</th>
+                <th class="th-sm" style="">content</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%
+                @foreach(@vars(:dayrange)) do day
+                  diary = haskey(@vars(:diaries_by_day), day) ? @vars(:diaries_by_day)[day] : nothing
+
+                """
+                  <tr $(diary == nothing && "class='table-secondary'")
+                      onclick="location.href = '$(Genie.Router.link_to((diary == nothing ? :new_diary : :edit_diary), date = day))'">
+                    <td>$(day)</td>
+                    <td>
+                      <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 700px">
+                        $(diary != nothing ? diary.note : "(new)")
+                      </div>
+                    </td>
+                  </tr>
+                """
+                end
+              %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="table-responsive">
-      <table class="table table-hover table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th class="th-sm" style="width: 16%">day</th>
-            <th class="th-sm" style="">content</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%
-            @foreach(@vars(:dayrange)) do day
-              diary = haskey(@vars(:diaries_by_day), day) ? @vars(:diaries_by_day)[day] : nothing
-
-            """
-              <tr $(diary == nothing && "class='table-secondary'")
-                  onclick="location.href = '$(Genie.Router.link_to((diary == nothing ? :new_diary : :edit_diary), date = day))'">
-                <td>$(day)</td>
-                <td>
-                  <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 700px">
-                    $(diary != nothing ? diary.note : "(new)")
-                  </div>
-                </td>
-              </tr>
-            """
-            end
-          %>
-        </tbody>
-      </table>
+  </div>
+  <div class="col-sm-3 m-2">
+    <div class="card mx-auto">
+      <div class="card-header">
+        <h3>Diaries</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="list-group m-2">
+            <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:now_year), month = @vars(:now_month)))"
+               class="list-group-item list-group-item-action list-group-item-warning text-center">
+              $(@vars(:now_year))年$(@vars(:now_month))月(現在)
+            </a>
+            <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:year) - 1, month = @vars(:month)))"
+               class="list-group-item list-group-item-action list-group-item-danger text-center">
+              $(@vars(:year) - 1)年$(@vars(:month))月
+            </a>
+            <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:year) + 1, month = @vars(:month)))"
+               class="list-group-item list-group-item-action list-group-item-danger text-center">
+              $(@vars(:year) + 1)年$(@vars(:month))月
+            </a>
+          </div>
+          <div class="list-group m-2">
+            <%
+               @foreach(1:12) do month
+                """
+                  <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:year), month = month))"
+                   class="list-group-item list-group-item-action text-center $(month == @vars(:month) ? "active" : "")">
+                    $(@vars(:year))年$(month)月
+                  </a>
+                """
+                end
+            %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-

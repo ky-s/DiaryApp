@@ -26,10 +26,6 @@ function index()
           title          = Dates.format(date, "yyyy年m月"),
           year           = year( date),
           month          = month(date),
-          prev_year      = year( date - Month(1)),
-          prev_month     = month(date - Month(1)),
-          next_year      = year( date + Month(1)),
-          next_month     = month(date + Month(1)),
           now_year       = year(Date(now())),
           now_month      = month(Date(now())),
     )
