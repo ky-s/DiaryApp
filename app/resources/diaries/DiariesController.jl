@@ -39,7 +39,8 @@ end
 
 function new()
     date = Date(@params(:date))
-    html!(:diaries, :new, date = date, year = year(date), month = month(date))
+    diary = Diary(date = date)
+    html!(:diaries, :new, diary = diary, year = year(date), month = month(date))
 end
 
 function create()

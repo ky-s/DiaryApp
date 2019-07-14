@@ -3,38 +3,9 @@
     <h3>Diaries</h3>
   </div>
   <div class="card-body">
-    <form action="$(Genie.Router.link_to(:update_diary))" method="POST">
-
-      <div class="row">
-        <div class="col-sm-8">
-          <h3>$(@vars(:diary).date)</h3>
-        </div>
-        <div class="col-sm-2">
-          <input type="hidden" name="diary_id" value="$(get(@vars(:diary).id))" />
-          <input type="hidden" name="date" value="$(@vars(:diary).date)" />
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                  <span class="input-group-text">天気</span>
-              </div>
-              <select name="weather" class="form-control">
-                <option value="">不明</option>
-                <option value="Sunny">晴れ</option>
-                <option value="Cloudy">曇り</option>
-                <option value="Rain">雨</option>
-                <option value="Snow">雪</option>
-              </select>
-              <script>\$("select[name='weather']").val("$(@vars(:diary).weather)")</script>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="btn-group" role="group">
-            <input type="submit" value="Submit" class="btn btn-primary" />
-            <a class="btn btn-secondary" href="$(Genie.Router.link_to(:index_diaries, year = @vars(:year), month = @vars(:month)))">back</a>
-          </div>
-        </div>
-      </div>
-      <textarea name="note" class="form-control" rows="25">$(@vars(:diary).note)</textarea>
-    </form>
+    <% partial("app/resources/diaries/views/form.jl.html", diary = @vars(:diary),
+               form_action = Genie.Router.link_to(:update_diary),
+               back_action = Genie.Router.link_to(:show_diary, date = @vars(:diary).date)) %>
   </div>
 </div>
 
