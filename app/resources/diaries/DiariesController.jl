@@ -34,7 +34,7 @@ end
 function show()
     date = Date(@params(:date))
     diary = SearchLight.find_one_by(Diary, SQLWhereExpression("date = ?", date)) |> get
-    html!(:diaries, :show, diary = diary)
+    html!(:diaries, :show, diary = diary, year = year(date), month = month(date))
 end
 
 function new()
@@ -45,7 +45,7 @@ end
 function create()
     date = Date(@params(:date))
     Diary(date = @params(:date), weather = @params(:weather), note = @params(:note)) |> save &&
-        redirect_to(link_to(:index_diaries, year = year(date), month = month(date)))
+        redirect_to(link_to(:show_diary, date = date))
 end
 
 function edit()
@@ -60,7 +60,7 @@ function update()
     diary.date    = date
     diary.weather = @params(:weather)
     diary.note    = @params(:note)
-    save(diary) && redirect_to(link_to(:index_diaries, year = year(date), month = month(date)))
+    save(diary) && redirect_to(link_to(:show_diary, date = date))
 end
 
 function get_diaries_in_month(fdom, ldom)

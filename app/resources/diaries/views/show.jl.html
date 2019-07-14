@@ -1,0 +1,43 @@
+<div class="card m-2 mx-auto" style="width: 65%">
+  <div class="card-header">
+    <h3>Diaries</h3>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-8">
+        <h3>$(@vars(:diary).date)</h3>
+      </div>
+      <div class="col-sm-2">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">天気</span>
+          </div>
+          <select name="weather" class="form-control" disabled>
+            <option value="">不明</option>
+            <option value="Sunny">晴れ</option>
+            <option value="Cloudy">曇り</option>
+            <option value="Rain">雨</option>
+            <option value="Snow">雪</option>
+          </select>
+          <script>\$("select[name='weather']").val("$(@vars(:diary).weather)")</script>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="btn-group" role="group">
+          <a href="$(Genie.Router.link_to(:edit_diary, date = @vars(:diary).date))" class="btn btn-primary">Edit</a>
+            <a class="btn btn-secondary" href="$(Genie.Router.link_to(:index_diaries, year = @vars(:year), month = @vars(:month)))">back</a>
+        </div>
+      </div>
+    </div>
+    <%
+      """
+        <p name="note" class="text-justify">$(replace(@vars(:diary).note, "\n" => "<br/>"))</p>
+      """
+    %>
+  </div>
+</div>
+
+<style>
+  p { line-height: 35px; }
+</style>
+

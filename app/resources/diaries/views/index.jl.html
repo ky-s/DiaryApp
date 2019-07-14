@@ -2,37 +2,68 @@
   <div class="col-sm-8 m-2">
     <div class="card mx-auto">
       <div class="card-header">
-        <h3>Diaries</h3>
+        <h3>$(@vars(:year))年$(@vars(:month))月</h3>
       </div>
       <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-hover table-striped">
-            <thead class="thead-dark">
-              <tr>
-                <th class="th-sm" style="width: 16%">day</th>
-                <th class="th-sm" style="">content</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%
-                @foreach(@vars(:dayrange)) do day
-                  diary = haskey(@vars(:diaries_by_day), day) ? @vars(:diaries_by_day)[day] : nothing
+        <div class="row">
+          <div class="table-responsive col-sm-6">
+            <table class="table table-hover table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="th-sm" style="width: 20%">day</th>
+                  <th class="th-sm" style="">content</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%
+                  @foreach(@vars(:dayrange)[1:15]) do day
+                    diary = haskey(@vars(:diaries_by_day), day) ? @vars(:diaries_by_day)[day] : nothing
 
-                """
-                  <tr $(diary == nothing && "class='table-secondary'")
-                      onclick="location.href = '$(Genie.Router.link_to((diary == nothing ? :new_diary : :edit_diary), date = day))'">
-                    <td>$(day)</td>
-                    <td>
-                      <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 700px">
-                        $(diary != nothing ? diary.note : "(new)")
-                      </div>
-                    </td>
-                  </tr>
-                """
-                end
-              %>
-            </tbody>
-          </table>
+                  """
+                    <tr $(diary == nothing && "class='table-secondary'")
+                        onclick="location.href = '$(Genie.Router.link_to((diary == nothing ? :new_diary : :show_diary), date = day))'">
+                      <td>$(day)</td>
+                      <td>
+                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 400px">
+                          $(diary != nothing ? diary.note : "(new)")
+                        </div>
+                      </td>
+                    </tr>
+                  """
+                  end
+                %>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-responsive col-sm-6">
+            <table class="table table-hover table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="th-sm" style="width: 20%">day</th>
+                  <th class="th-sm" style="">content</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%
+                  @foreach(@vars(:dayrange)[16:end]) do day
+                    diary = haskey(@vars(:diaries_by_day), day) ? @vars(:diaries_by_day)[day] : nothing
+
+                  """
+                    <tr $(diary == nothing && "class='table-secondary'")
+                        onclick="location.href = '$(Genie.Router.link_to((diary == nothing ? :new_diary : :show_diary), date = day))'">
+                      <td>$(day)</td>
+                      <td>
+                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 400px">
+                          $(diary != nothing ? diary.note : "(new)")
+                        </div>
+                      </td>
+                    </tr>
+                  """
+                  end
+                %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
