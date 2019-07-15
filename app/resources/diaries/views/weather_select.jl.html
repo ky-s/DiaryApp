@@ -1,0 +1,15 @@
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text">天気</span>
+  </div>
+  <select name="weather" class="form-control"><!-- disabled=$(get(@vars(:disabled), "disabled"))-->
+    <option value="">不明</option>
+    <option value="Sunny">晴れ</option>
+    <option value="Cloudy">曇り</option>
+    <option value="Rain">雨</option>
+    <option value="Snow">雪</option>
+  </select>
+</div>
+<script>
+  \$("select[name='weather']").val("$(@vars(:weather))").prop("disabled", $(@vars(:disabled)));
+</script>

@@ -1,5 +1,4 @@
 <form action="$(@vars(:form_action))" method="POST">
-
   <div class="row">
     <div class="col-sm-8">
       <h3>$(@vars(:diary).date)</h3>
@@ -7,19 +6,7 @@
     <div class="col-sm-2">
       <input type="hidden" name="diary_id" value="$(get(@vars(:diary).id, -1))" />
       <input type="hidden" name="date" value="$(@vars(:diary).date)" />
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">天気</span>
-        </div>
-        <select name="weather" class="form-control">
-          <option value="">不明</option>
-          <option value="Sunny">晴れ</option>
-          <option value="Cloudy">曇り</option>
-          <option value="Rain">雨</option>
-          <option value="Snow">雪</option>
-        </select>
-        <script>\$("select[name='weather']").val("$(@vars(:diary).weather)")</script>
-      </div>
+      <% partial("app/resources/diaries/views/weather_select.jl.html", weather = @vars(:diary).weather, disabled = false) %>
     </div>
     <div class="col-sm-2">
       <div class="btn-group" role="group">
