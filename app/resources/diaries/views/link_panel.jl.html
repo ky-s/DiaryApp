@@ -1,0 +1,36 @@
+<div class="card mx-auto">
+  <div class="card-header">
+    <h3>Diaries</h3>
+  </div>
+  <div class="card-body">
+    <div>
+      <div class="list-group m-2">
+        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:now_year), month = @vars(:now_month)))"
+           class="list-group-item list-group-item-action list-group-item-warning text-center">
+          $(@vars(:now_year))年$(@vars(:now_month))月(現在)
+        </a>
+        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:current_year) - 1, month = @vars(:current_month)))"
+           class="list-group-item list-group-item-action list-group-item-danger text-center">
+          $(@vars(:current_year) - 1)年$(@vars(:current_month))月
+        </a>
+        <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:current_year) + 1, month = @vars(:current_month)))"
+           class="list-group-item list-group-item-action list-group-item-danger text-center">
+          $(@vars(:current_year) + 1)年$(@vars(:current_month))月
+        </a>
+      </div>
+      <div class="list-group m-2">
+        <%
+           @foreach(1:12) do month
+            """
+              <a href="$(Genie.Router.link_to(:index_diaries, year = @vars(:current_year), month = month))"
+               class="list-group-item list-group-item-action text-center $(month == @vars(:current_month) ? "active" : "")">
+                $(@vars(:current_year))年$(month)月
+              </a>
+            """
+            end
+        %>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -24,8 +24,8 @@ function index()
           diaries_by_day = diaries_by_day,
           dayrange       = fdom:Day(1):ldom,
           title          = Dates.format(date, "yyyy年m月"),
-          year           = year( date),
-          month          = month(date),
+          current_year   = year( date),
+          current_month  = month(date),
           now_year       = year(Date(now())),
           now_month      = month(Date(now())),
     )

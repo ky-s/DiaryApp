@@ -1,0 +1,30 @@
+<div class="table-responsive">
+  <table class="table table-hover table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th class="th-sm" style="width: 20%">day</th>
+        <th class="th-sm" style="">content</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%
+        @foreach(@vars(:days)) do day
+          diary = haskey(@vars(:diaries_by_day), day) ? @vars(:diaries_by_day)[day] : nothing
+
+        """
+          <tr $(diary == nothing && "class='table-secondary'")
+              onclick="location.href = '$(Genie.Router.link_to((diary == nothing ? :new_diary : :show_diary), date = day))'">
+            <td>$(day)</td>
+            <td>
+              <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 400px">
+                $(diary != nothing ? diary.note : "(new)")
+              </div>
+            </td>
+          </tr>
+        """
+        end
+      %>
+    </tbody>
+  </table>
+</div>
+
